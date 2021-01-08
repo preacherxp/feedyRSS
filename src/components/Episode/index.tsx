@@ -4,7 +4,6 @@ import ReactAudioPlayer from 'react-audio-player';
 import { Button, Collapse, makeStyles, Modal } from '@material-ui/core';
 import styles from './Episode.module.scss';
 import FlexContainer from '../../common/FlexContainer';
-import classNames from 'classnames';
 
 const { shell } = require('electron');
 
@@ -45,10 +44,12 @@ type Props = {
   open: boolean;
   setOpen: any;
   setLink: any;
+  playing: any;
+  setPlaying: any;
 };
 
 function Episode(props: Props) {
-  const { link, title, description, media, setOpen, open, setLink } = props;
+  const { link, title, description, media, setOpen, open, setPlaying } = props;
   const audioPlayerRef = useRef<any | null>(null);
 
   const classes = useStyles();
@@ -95,12 +96,12 @@ function Episode(props: Props) {
           {media && open && (
             <ReactAudioPlayer
               ref={audioPlayerRef}
-              style={{ width: '100%', marginBottom: '2rem' }}
               className={styles.audioPlayerActive}
               src={link}
               controls
               autoPlay={false}
-              onPlay={() => setLink(link)}
+              onPlay={() => setPlaying(true)}
+              onPause={() => setPlaying(false)}
             />
           )}
           {media ? (

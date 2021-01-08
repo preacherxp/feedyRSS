@@ -19,6 +19,8 @@ function EpisodeList(props: Props): ReactElement {
   const [open, setOpen] = useState(false);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
+  const [playing, setPlaying] = useState(false);
+
   const filteredEpisodes = useMemo(() => {
     return keyWord.length
       ? episodes.map((episode) => {
@@ -38,8 +40,12 @@ function EpisodeList(props: Props): ReactElement {
   };
 
   const handleSetOpen = (state: boolean, idx: number) => {
-    setOpen(state);
-    setOpenIdx(idx);
+    if (playing) {
+      alert('Stop episode first!');
+    } else {
+      setOpen(state);
+      setOpenIdx(idx);
+    }
   };
 
   return (
@@ -76,6 +82,8 @@ function EpisodeList(props: Props): ReactElement {
               open={openIdx === idx && open}
               setOpen={(state: any) => handleSetOpen(state, idx)}
               key={idx}
+              playing={playing}
+              setPlaying={setPlaying}
               title={episode.title}
               link={episode.enclosure ? episode.enclosure.url : episode.link}
               description={episode.contentSnippet}
