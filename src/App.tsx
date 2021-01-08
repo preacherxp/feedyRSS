@@ -9,6 +9,7 @@ import LoadingStatus from './components/LoadingStatus';
 import ErrorAlert from './components/ErrorAlert';
 import SearchHistory from './components/SearchHistory';
 import FlexContainer from './common/FlexContainer';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 function Dash() {
   const [fetched, setFetched] = useState<any | null>(null);
@@ -42,43 +43,55 @@ function Dash() {
     }
   };
 
+  const theme = createMuiTheme({
+    palette: {
+      primary: { main: '#234523' },
+      secondary: { main: '#232556' },
+    },
+  });
+
   return (
-    <div className={styles.App}>
-      <div className={styles.AppWrapper}>
-        <FlexContainer flex={1} style={{ width: '100%' }}>
-          <div className="">
-            <FlexContainer alignItems="center" justifyContent="space-between">
-              <h1>FeedyRSS</h1>
-              {previousFeeds.length > 0 && (
-                <SearchHistory getFeed={getFeed} history={[...previousFeeds]} />
-              )}
-            </FlexContainer>
-            <div style={{ width: '100%' }}>
-              <SearchForm getFeed={getFeed} />
+    <ThemeProvider theme={theme}>
+      <div className={styles.App}>
+        <div className={styles.AppWrapper}>
+          <FlexContainer flex={1} style={{ width: '100%' }}>
+            <div className="">
+              <FlexContainer alignItems="center" justifyContent="space-between">
+                <h1>FeedyRSS</h1>
+                {previousFeeds.length > 0 && (
+                  <SearchHistory
+                    getFeed={getFeed}
+                    history={[...previousFeeds]}
+                  />
+                )}
+              </FlexContainer>
+              <div style={{ width: '100%' }}>
+                <SearchForm getFeed={getFeed} />
+              </div>
             </div>
-          </div>
-        </FlexContainer>
+          </FlexContainer>
 
-        {error && (
-          <ErrorAlert
-            error={error}
-            setError={setError}
-            setFetching={setFetching}
-          />
-        )}
+          {error && (
+            <ErrorAlert
+              error={error}
+              setError={setError}
+              setFetching={setFetching}
+            />
+          )}
 
-        {onFetching && <LoadingStatus />}
+          {onFetching && <LoadingStatus />}
 
-        {fetched && (
-          <EpisodeList
-            episodes={fetched.episodes}
-            title={fetched.title}
-            description={fetched.description}
-            image={fetched.image}
-          />
-        )}
+          {fetched && (
+            <EpisodeList
+              episodes={fetched.episodes}
+              title={fetched.title}
+              description={fetched.description}
+              image={fetched.image}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
