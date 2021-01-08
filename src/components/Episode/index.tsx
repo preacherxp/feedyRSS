@@ -43,7 +43,6 @@ type Props = {
   media: boolean;
   open: boolean;
   setOpen: any;
-  setLink: any;
   playing: any;
   setPlaying: any;
 };

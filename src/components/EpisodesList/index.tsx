@@ -9,11 +9,10 @@ type Props = {
   description: string;
   image: string;
   episodes: IEpisode[];
-  setLink: any;
 };
 
 function EpisodeList(props: Props): ReactElement {
-  const { title, description, image, episodes, setLink } = props;
+  const { title, description, image, episodes } = props;
 
   const [keyWord, setKeyWord] = useState('');
   const [open, setOpen] = useState(false);
@@ -63,11 +62,7 @@ function EpisodeList(props: Props): ReactElement {
           placeholder="Search for keywords..."
           type="text"
           onChange={handleSearchChange}
-          style={{
-            padding: '0.5rem 0',
-            margin: '1rem 0',
-            color: 'white',
-          }}
+          className={styles.episodesListSearch}
           fullWidth
         />
       </div>
@@ -88,7 +83,6 @@ function EpisodeList(props: Props): ReactElement {
               link={episode.enclosure ? episode.enclosure.url : episode.link}
               description={episode.contentSnippet}
               media={!!episode.enclosure}
-              setLink={setLink}
             />
           </div>
         ))}
