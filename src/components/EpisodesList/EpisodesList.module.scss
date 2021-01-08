@@ -1,6 +1,6 @@
 .episodesListWrapper {
   flex: 3;
-  padding-bottom: 1rem;
+  padding-bottom: 5rem;
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -28,7 +28,7 @@
 }
 
 .podcastImage {
-  width: 192px;
+  width: 96px;
   object-fit: contain;
 }
 
@@ -36,16 +36,17 @@
   display: flex;
   justify-content: space-between;
   flex-flow: column;
-  min-height: 192px;
+  min-height: 96px;
   margin: 0 1rem;
   & p {
     margin: 0;
+    font-size: 14px;
   }
 }
 
 .episodesList {
   overflow: auto;
-  height: 420px;
+  height: 500px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }

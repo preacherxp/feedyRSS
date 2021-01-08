@@ -9,13 +9,14 @@ import LoadingStatus from './components/LoadingStatus';
 import ErrorAlert from './components/ErrorAlert';
 import SearchHistory from './components/SearchHistory';
 import FlexContainer from './common/FlexContainer';
-
+import ReactAudioPlayer from 'react-audio-player';
 
 function Dash() {
   const [fetched, setFetched] = useState<any | null>(null);
   const [onFetching, setFetching] = useState(false);
   const [previousFeeds, setPreviousFeeds] = useState<any[]>([]);
   const [error, setError] = useState(false);
+  const [link, setLink] = useState<string>('');
 
   const getFeed = async (event: any): Promise<void> => {
     setFetching((prevFetching) => !prevFetching);
@@ -45,15 +46,7 @@ function Dash() {
 
   return (
     <div className={styles.App}>
-      <div
-        style={{
-          display: 'flex',
-          height: '100%',
-          width: 'calc(100% - 2rem)',
-          margin: '0 2rem',
-          flexFlow: 'column',
-        }}
-      >
+      <div className={styles.AppWrapper}>
         <FlexContainer flex={1} style={{ width: '100%' }}>
           <div className="">
             <FlexContainer alignItems="center" justifyContent="space-between">
@@ -84,6 +77,7 @@ function Dash() {
             title={fetched.title}
             description={fetched.description}
             image={fetched.image}
+            setLink={setLink}
           />
         )}
       </div>

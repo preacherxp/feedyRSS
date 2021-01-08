@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import { Button, Collapse, makeStyles, Modal } from '@material-ui/core';
 import styles from './Episode.module.scss';
 import FlexContainer from '../../common/FlexContainer';
+import classNames from 'classnames';
+
 const { shell } = require('electron');
 
 function rand() {
@@ -40,21 +42,23 @@ type Props = {
   title: string;
   description: string;
   media: boolean;
+  open: boolean;
+  setOpen: any;
+  setLink: any;
 };
 
 function Episode(props: Props) {
-  const { link, title, description, media } = props;
+  const { link, title, description, media, setOpen, open, setLink } = props;
+  const audioPlayerRef = useRef<any | null>(null);
 
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
-  const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpen = () => {
     setModalOpen(true);
   };
-
   const handleClose = () => {
     setModalOpen(false);
   };
@@ -88,12 +92,15 @@ function Episode(props: Props) {
       </FlexContainer>
       <Collapse in={open}>
         <FlexContainer flexFlow="column">
-          {media && (
+          {media && open && (
             <ReactAudioPlayer
-              className="audioPlayer"
+              ref={audioPlayerRef}
+              style={{ width: '100%', marginBottom: '2rem' }}
+              className={styles.audioPlayerActive}
               src={link}
               controls
               autoPlay={false}
+              onPlay={() => setLink(link)}
             />
           )}
           {media ? (

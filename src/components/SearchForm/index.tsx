@@ -22,8 +22,8 @@ const SearchForm = (props: Props) => {
   };
 
   return (
-    <div style={{ flex: 2 }}>
-      <form onSubmit={getFeed}>
+    <form style={{ marginBottom: '1rem', flex: 2 }} onSubmit={getFeed}>
+      <FlexContainer justifyContent="center">
         <Input
           placeholder="Enter your RSS Feed here..."
           type="text"
@@ -35,19 +35,17 @@ const SearchForm = (props: Props) => {
           }}
           fullWidth
         />
-        <FlexContainer justifyContent="center">
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            disabled={disabled}
-            style={{ margin: '20px 0', width: '150px' }}
-          >
-            Feed me
-          </Button>
-        </FlexContainer>
-      </form>
-    </div>
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          disabled={disabled}
+          style={{ margin: '20px 0', width: '150px' }}
+        >
+          Feed me
+        </Button>
+      </FlexContainer>
+    </form>
   );
 };
 

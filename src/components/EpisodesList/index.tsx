@@ -9,12 +9,15 @@ type Props = {
   description: string;
   image: string;
   episodes: IEpisode[];
+  setLink: any;
 };
 
 function EpisodeList(props: Props): ReactElement {
-  const { title, description, image, episodes } = props;
+  const { title, description, image, episodes, setLink } = props;
 
   const [keyWord, setKeyWord] = useState('');
+  const [open, setOpen] = useState(false);
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   const filteredEpisodes = useMemo(() => {
     return keyWord.length
@@ -29,6 +32,11 @@ function EpisodeList(props: Props): ReactElement {
     setKeyWord(value);
   };
 
+  const handleSetOpen = (state: boolean, idx: number) => {
+    setOpen(state);
+    setOpenIdx(idx);
+  };
+
   return (
     <div className={styles.episodesListWrapper}>
       <div className={styles.podcastInfo}>
@@ -39,7 +47,6 @@ function EpisodeList(props: Props): ReactElement {
           <p>{description}</p>
         </div>
       </div>
-
       <div className="">
         <Input
           placeholder="Search for keywords..."
@@ -53,15 +60,17 @@ function EpisodeList(props: Props): ReactElement {
           fullWidth
         />
       </div>
-
       <div className={styles.episodesList}>
         {filteredEpisodes.map((episode, idx) => (
           <Episode
+            open={openIdx === idx && open}
+            setOpen={(state: any) => handleSetOpen(state, idx)}
             key={idx}
             title={episode.title}
             link={episode.enclosure ? episode.enclosure.url : episode.link}
             description={episode.contentSnippet}
             media={!!episode.enclosure}
+            setLink={setLink}
           />
         ))}
       </div>
