@@ -21,8 +21,13 @@ function EpisodeList(props: Props): ReactElement {
 
   const filteredEpisodes = useMemo(() => {
     return keyWord.length
-      ? episodes.filter((episode) => {
-          return episode.title.toLowerCase().includes(keyWord.toLowerCase());
+      ? episodes.map((episode) => {
+          return {
+            ...episode,
+            display: episode.title.toLowerCase().includes(keyWord.toLowerCase())
+              ? 'block'
+              : 'none',
+          };
         })
       : episodes;
   }, [keyWord, episodes]);
@@ -62,16 +67,22 @@ function EpisodeList(props: Props): ReactElement {
       </div>
       <div className={styles.episodesList}>
         {filteredEpisodes.map((episode, idx) => (
-          <Episode
-            open={openIdx === idx && open}
-            setOpen={(state: any) => handleSetOpen(state, idx)}
-            key={idx}
-            title={episode.title}
-            link={episode.enclosure ? episode.enclosure.url : episode.link}
-            description={episode.contentSnippet}
-            media={!!episode.enclosure}
-            setLink={setLink}
-          />
+          <div
+            style={{
+              display: (openIdx === idx && 'block') || (episode as any).display,
+            }}
+          >
+            <Episode
+              open={openIdx === idx && open}
+              setOpen={(state: any) => handleSetOpen(state, idx)}
+              key={idx}
+              title={episode.title}
+              link={episode.enclosure ? episode.enclosure.url : episode.link}
+              description={episode.contentSnippet}
+              media={!!episode.enclosure}
+              setLink={setLink}
+            />
+          </div>
         ))}
       </div>
     </div>
