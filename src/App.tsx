@@ -55,19 +55,14 @@ function Dash() {
       <div className={styles.App}>
         <div className={styles.AppWrapper}>
           <FlexContainer style={{ width: '100%', flex: 1 }}>
-            <div className="">
-              <FlexContainer alignItems="center" justifyContent="space-between">
-                <h1>FeedyRSS</h1>
-                {previousFeeds.length > 0 && (
-                  <SearchHistory
-                    getFeed={getFeed}
-                    history={[...previousFeeds]}
-                  />
-                )}
-              </FlexContainer>
-              <div style={{ width: '100%' }}>
-                <SearchForm getFeed={getFeed} />
-              </div>
+            <FlexContainer alignItems="center" justifyContent="space-between">
+              <h1>FeedyRSS</h1>
+              {previousFeeds.length > 0 && (
+                <SearchHistory getFeed={getFeed} history={[...previousFeeds]} />
+              )}
+            </FlexContainer>
+            <div style={{ width: '100%' }}>
+              <SearchForm getFeed={getFeed} />
             </div>
           </FlexContainer>
 

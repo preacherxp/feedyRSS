@@ -63,7 +63,7 @@ function EpisodeList(props: Props): ReactElement {
         <FlexContainer flexFlow="column" justifyContent="center">
           <div className={styles.podcastTitle}>
             <h2 className="">
-              {open && openIdx ? episodes[openIdx].title : title}
+              {open && openIdx !== null ? episodes[openIdx].title : title}
             </h2>
             {!open && <p>{description}</p>}
           </div>

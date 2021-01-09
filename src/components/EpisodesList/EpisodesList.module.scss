@@ -24,6 +24,7 @@
   z-index: 9999;
   position: fixed;
   display: flex;
+  align-items: center;
   background: rgb(99, 98, 98);
   padding: 1rem;
   box-shadow: 0 -2px 8px 4px rgba(0, 0, 0, 0.15);
@@ -38,7 +39,7 @@
       & h2 {
         font-size: 16px;
         word-wrap: break-word;
-        width: 650px;
+        width: 60%;
         margin-bottom: 0 !important;
       }
     }
@@ -54,9 +55,9 @@
   display: flex;
   justify-content: space-between;
   flex-flow: column;
-  min-height: 96px;
   margin: 0 1rem;
   & h2 {
+    font-size: 20px;
     display: flex;
     align-items: center;
     margin-bottom: 1rem;

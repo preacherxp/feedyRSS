@@ -33,7 +33,7 @@ export default function SearchHistory(props: Props) {
         color="secondary"
         onClick={handleClick}
       >
-        Previous Feeds
+        History
       </Button>
       <Menu
         id="simple-menu"
