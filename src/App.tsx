@@ -54,7 +54,7 @@ function Dash() {
     <ThemeProvider theme={theme}>
       <div className={styles.App}>
         <div className={styles.AppWrapper}>
-          <FlexContainer flex={1} style={{ width: '100%' }}>
+          <FlexContainer style={{ width: '100%', flex: 1 }}>
             <div className="">
               <FlexContainer alignItems="center" justifyContent="space-between">
                 <h1>FeedyRSS</h1>

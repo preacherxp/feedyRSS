@@ -1,5 +1,8 @@
 import { Input } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
+import classNames from 'classnames';
 import React, { ChangeEvent, ReactElement, useMemo, useState } from 'react';
+import FlexContainer from '../../common/FlexContainer';
 import { IEpisode } from '../../types';
 import Episode from '../Episode';
 import styles from './EpisodesList.module.scss';
@@ -49,26 +52,40 @@ function EpisodeList(props: Props): ReactElement {
 
   return (
     <div className={styles.episodesListWrapper}>
-      <div className={styles.podcastInfo}>
+      <div
+        className={classNames([
+          styles.podcastInfo,
+          open && styles.podcastInfoOpen,
+        ])}
+      >
         <img src={image} className={styles.podcastImage} alt={title} />
 
-        <div className={styles.podcastTitle}>
-          <h2 className="">{title}</h2>
-          <p>{description}</p>
-        </div>
+        <FlexContainer flexFlow="column" justifyContent="center">
+          <div className={styles.podcastTitle}>
+            <h2 className="">
+              {open && openIdx ? episodes[openIdx].title : title}
+            </h2>
+            {!open && <p>{description}</p>}
+          </div>
+        </FlexContainer>
       </div>
-      <div className="">
+
+      <div className={styles.episodesListSearchWrapper}>
+        <Search />
         <Input
           placeholder="Search for keywords..."
           type="text"
           onChange={handleSearchChange}
           className={styles.episodesListSearch}
           fullWidth
+          disableUnderline
         />
       </div>
+
       <div className={styles.episodesList}>
         {filteredEpisodes.map((episode, idx) => (
           <div
+            key={idx}
             style={{
               display: (openIdx === idx && 'block') || (episode as any).display,
             }}
@@ -76,7 +93,6 @@ function EpisodeList(props: Props): ReactElement {
             <Episode
               open={openIdx === idx && open}
               setOpen={(state: any) => handleSetOpen(state, idx)}
-              key={idx}
               playing={playing}
               setPlaying={setPlaying}
               title={episode.title}

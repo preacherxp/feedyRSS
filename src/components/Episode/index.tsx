@@ -4,6 +4,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import { Button, Collapse, makeStyles, Modal } from '@material-ui/core';
 import styles from './Episode.module.scss';
 import FlexContainer from '../../common/FlexContainer';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const { shell } = require('electron');
 
@@ -66,27 +67,21 @@ function Episode(props: Props) {
   return (
     <div className={styles.episodeWrapper}>
       <FlexContainer justifyContent="space-between">
-        <h3 style={{ marginRight: '2rem' }}>{title}</h3>
+        <h3 style={{ fontSize: '18px', marginRight: '2rem' }}>{title}</h3>
 
         <FlexContainer alignItems="center">
           {open ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              type="button"
+            <ExpandLess
+              fontSize={'large'}
+              style={{ cursor: 'pointer' }}
               onClick={() => setOpen(false)}
-            >
-              Close
-            </Button>
+            />
           ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              type="button"
+            <ExpandMore
+              fontSize={'large'}
+              style={{ cursor: 'pointer' }}
               onClick={() => setOpen(true)}
-            >
-              Details
-            </Button>
+            />
           )}
         </FlexContainer>
       </FlexContainer>
